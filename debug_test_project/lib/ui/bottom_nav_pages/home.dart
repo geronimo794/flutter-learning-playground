@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, avoid_print, avoid_unnecessary_containers, use_key_in_widget_constructors, non_constant_identifier_names
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e_commerce_app/const/AppColors.dart';
-import 'package:e_commerce_app/ui/product_details_screen.dart';
-import 'package:e_commerce_app/ui/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../const/AppColors.dart';
+import '../product_details_screen.dart';
+import '../search_screen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,8 +23,7 @@ class _HomeState extends State<Home> {
   final _firestoreInstance = FirebaseFirestore.instance;
 
   fetchCarouselImages() async {
-    QuerySnapshot qn =
-        await _firestoreInstance.collection("carousel-slider").get();
+    QuerySnapshot qn = await _firestoreInstance.collection("carousel-slider").get();
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
         _carouselImages.add(
@@ -103,9 +103,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(left: 3, right: 3),
                           child: Container(
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(item),
-                                  fit: BoxFit.fitWidth),
+                              image: DecorationImage(image: NetworkImage(item), fit: BoxFit.fitWidth),
                             ),
                           ),
                         ),
@@ -130,8 +128,7 @@ class _HomeState extends State<Home> {
                 height: 10.h,
               ),
               DotsIndicator(
-                dotsCount:
-                    _carouselImages.length == 0 ? 1 : _carouselImages.length,
+                dotsCount: _carouselImages.length == 0 ? 1 : _carouselImages.length,
                 position: _dotPosition.toDouble(),
                 decorator: DotsDecorator(
                   activeColor: AppColors.deep_orange,
@@ -148,8 +145,7 @@ class _HomeState extends State<Home> {
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _products.length,
-                  gridDelegate: SilverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 1),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1),
                   itemBuilder: (_, index) {
                     return GestureDetector(
                       onTap: () => Navigator.push(
@@ -172,8 +168,7 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             Text("${_products[index]["product-img"]}"),
-                            Text(
-                                "${_products[index]["product-price"].toString()}"),
+                            Text("${_products[index]["product-price"].toString()}"),
                           ],
                         ),
                       ),
@@ -188,6 +183,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-SilverGridDelegateWithFixedCrossAxisCount(
-    {required int crossAxisCount, required int childAspectRatio}) {}

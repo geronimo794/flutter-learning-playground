@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, library_private_types_in_public_api, unused_field, avoid_print, use_build_context_synchronously
 
-import 'package:e_commerce_app/const/AppColors.dart';
-import 'package:e_commerce_app/ui/user_form.dart';
-import 'package:e_commerce_app/widgets/customButton.dart';
+import 'package:debug_test_project/ui/user_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../const/AppColors.dart';
+import '../widgets/customButton.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -23,9 +24,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   signUp() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: _emailController.text, password: _passwordController.text);
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
       var authCredential = userCredential.user;
       print(authCredential!.uid);
       if (authCredential.uid.isNotEmpty) {
@@ -37,8 +36,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(msg: "The password provided is too weak.");
       } else if (e.code == 'email-already-in-use') {
-        Fluttertoast.showToast(
-            msg: "The account already exists for that email");
+        Fluttertoast.showToast(msg: "The account already exists for that email");
       }
     } catch (e) {
       print(e);
@@ -98,8 +96,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         Text(
                           "Welcome Buddy!",
-                          style: TextStyle(
-                              fontSize: 22.sp, color: AppColors.deep_orange),
+                          style: TextStyle(fontSize: 22.sp, color: AppColors.deep_orange),
                         ),
                         Text(
                           "Glad to see you back my buddy.",

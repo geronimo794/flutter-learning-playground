@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:e_commerce_app/const/AppColors.dart';
-import 'package:e_commerce_app/ui/bottom_nav_pages/cart.dart';
-import 'package:e_commerce_app/ui/bottom_nav_pages/favourite.dart';
-import 'package:e_commerce_app/ui/bottom_nav_pages/home.dart';
-import 'package:e_commerce_app/ui/bottom_nav_pages/profile.dart';
 import 'package:flutter/material.dart';
+
+import '../const/AppColors.dart';
+import 'bottom_nav_pages/cart.dart';
+import 'bottom_nav_pages/favourite.dart';
+import 'bottom_nav_pages/home.dart';
+import 'bottom_nav_pages/profile.dart';
 
 class BottomNavController extends StatefulWidget {
   const BottomNavController({super.key});
@@ -42,8 +43,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
         backgroundColor: Colors.white,
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
-        selectedLabelStyle:
-            TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        selectedLabelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         // ignore: prefer_const_literals_to_create_immutables
         items: [
           BottomNavigationBarItem(

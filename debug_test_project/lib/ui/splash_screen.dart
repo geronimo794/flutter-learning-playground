@@ -2,11 +2,12 @@
 
 import 'dart:async';
 
-import 'package:e_commerce_app/const/AppColors.dart';
-import 'package:e_commerce_app/ui/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../const/AppColors.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,10 +19,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(
-        Duration(seconds: 10),
-        () => Navigator.push(
-            context, CupertinoPageRoute(builder: (_) => LoginScreen())));
+    Timer(Duration(seconds: 10), () => Navigator.push(context, CupertinoPageRoute(builder: (_) => LoginScreen())));
     super.initState();
   }
 
@@ -37,10 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Text(
                 "E-Commerce",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 44.sp),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 44.sp),
               ),
               SizedBox(
                 height: 20.h,

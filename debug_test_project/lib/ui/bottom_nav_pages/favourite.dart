@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/widgets/fetchProducts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/fetchProducts.dart';
 // import 'package:flutter_ecommerce/widgets/fetchProducts.dart';
 
 class Favourite extends StatefulWidget {

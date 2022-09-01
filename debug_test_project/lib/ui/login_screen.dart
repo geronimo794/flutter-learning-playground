@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, use_build_context_synchronously
 
-import 'package:e_commerce_app/const/AppColors.dart';
-import 'package:e_commerce_app/ui/bottom_nav_controller.dart';
-import 'package:e_commerce_app/ui/registration_screen.dart';
-import 'package:e_commerce_app/widgets/customButton.dart';
+import 'package:debug_test_project/ui/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../const/AppColors.dart';
+import '../widgets/customButton.dart';
+import 'bottom_nav_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,15 +25,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   signIn() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: _emailController.text, password: _passwordController.text);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
       var authCredential = userCredential.user;
       print(authCredential!.uid);
 
       if (authCredential.uid.isNotEmpty) {
-        Navigator.push(
-            context, CupertinoPageRoute(builder: (_) => BottomNavController()));
+        Navigator.push(context, CupertinoPageRoute(builder: (_) => BottomNavController()));
       } else {
         Fluttertoast.showToast(msg: "Something is wrong");
       }
@@ -100,8 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Text(
                           "Welcome Back",
-                          style: TextStyle(
-                              fontSize: 22.sp, color: AppColors.deep_orange),
+                          style: TextStyle(fontSize: 22.sp, color: AppColors.deep_orange),
                         ),
                         Text(
                           "Glad to see you back my buddy.",

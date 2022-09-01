@@ -3,10 +3,11 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/const/AppColors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../const/AppColors.dart';
 
 class ProductDetails extends StatefulWidget {
   var _product;
@@ -21,13 +22,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   Future addToCart() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
-    CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("users-cart-items");
-    return _collectionRef
-        .doc(currentUser!.email)
-        .collection("items")
-        .doc()
-        .set({
+    CollectionReference _collectionRef = FirebaseFirestore.instance.collection("users-cart-items");
+    return _collectionRef.doc(currentUser!.email).collection("items").doc().set({
       "name": widget._product["product-name"],
       "price": widget._product["product-price"],
       "images": widget._product["product-img"],
@@ -37,13 +33,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   Future addToFavourite() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
-    CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("users-favourite-items");
-    return _collectionRef
-        .doc(currentUser!.email)
-        .collection("items")
-        .doc()
-        .set({
+    CollectionReference _collectionRef = FirebaseFirestore.instance.collection("users-favourite-items");
+    return _collectionRef.doc(currentUser!.email).collection("items").doc().set({
       "name": widget._product["product-name"],
       "price": widget._product["product-price"],
       "name": widget._product["product-img"],
@@ -71,12 +62,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
         actions: [
           StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("users-favourite-items")
-                .doc(FirebaseAuth.instance.currentUser!.email)
-                .collection("items")
-                .where("name", isEqualTo: widget._product['product-name'])
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection("users-favourite-items").doc(FirebaseAuth.instance.currentUser!.email).collection("items").where("name", isEqualTo: widget._product['product-name']).snapshots(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Text("");
@@ -86,9 +72,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: CircleAvatar(
                   backgroundColor: Colors.red,
                   child: IconButton(
-                    onPressed: () => snapshot.data.docs.length == 0
-                        ? addToFavourite()
-                        : print("Already Added"),
+                    onPressed: () => snapshot.data.docs.length == 0 ? addToFavourite() : print("Already Added"),
                     icon: snapshot.data.docs.length == 0
                         ? Icon(
                             Icons.favorite_outline,
@@ -120,9 +104,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           padding: const EdgeInsets.only(left: 3, right: 3),
                           child: Container(
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(item),
-                                  fit: BoxFit.fitWidth),
+                              image: DecorationImage(image: NetworkImage(item), fit: BoxFit.fitWidth),
                             ),
                           ),
                         ),
@@ -149,10 +131,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Text(
                 "\$ ${widget._product['product-price'].toString()}",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.red),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.red),
               ),
               Divider(),
               SizedBox(
@@ -165,7 +144,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                     style: TextStyle(color: Colors.white, fontSize: 18.sp),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.deep_orange,
                     elevation: 3,
                   ),
                 ),
